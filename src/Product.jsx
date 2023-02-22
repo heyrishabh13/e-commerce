@@ -1,5 +1,6 @@
 import react from 'react';
 import { Link } from 'react-router-dom';
+import GeneralButton from './GeneralButton';
 
 function Product({thumbnail, category, title, price, id}) {
   return (
@@ -9,7 +10,7 @@ function Product({thumbnail, category, title, price, id}) {
       <h2 className='text-gray-400'>{category}</h2>
       <h2>{title}</h2>
       <h2>{'$' + price}</h2>
-      <Link className="px-4 py-2 mb-4 text-white rounded-full bg-violet-700" to={'/product/' + id}>View Detail</Link>
+      <Link className="px-4 py-2 mb-4 text-white rounded-full bg-violet-700" to={'/product/' + id}><GeneralButton content="View More"/></Link>
     </div>
   );
 }
