@@ -1,19 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Loading } from "./Loading";
 import { getProductData } from "./api";
 
 function Cart(){
-    const productsIdsInCart = JSON.parse(localStorage.getItem('productsIdsInCart'));
-    const [productsArray, setProductsArray] = useState([]);
+    const cartProductsIds = JSON.parse(localStorage.getItem('my-cart'));
+    console.log('cartProductsIds in cart page', cartProductsIds);
+    const [products, setProducts] = useState([]);
 
     useEffect(function(){
-        setProductsArray(Objects.keys(productsIdsInCart).map(id => {
-            getProductData(id).then(res => res.data);
-        }))
+        const arr = Object.keys(cartProductsIds).map(id => {
+            getProductData(id).then(res => {res.data; console.log('res.data', res.data)}).catch(err => console.log('Error while retrieving data from getProduct api in cart page',err))});
+            
+        console.log('array',arr);    
+        setProducts(arr)
     }, []);
-    console.log('productsArray',productsArray);
+    console.log('products in cart page',products);
     return (
-        <Loading/>
+        // products.length ? products.map( ({title}) => {
+        //     <div>{title}</div>
+        
+        // }) : 
+        <Loading />
     )
 }
 
