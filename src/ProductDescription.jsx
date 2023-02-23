@@ -9,7 +9,7 @@ import {IoArrowBackOutline} from 'react-icons/io5'
 
 function ProductDescription({onAddToCart}){
     let {id} = useParams();
-    const [product, setProductData] = useState([]);
+    const [product, setProductData] = useState();
     const [loading, setLoading] = useState(true);
     const [count, setCount] = useState(1);
 
@@ -33,8 +33,11 @@ function ProductDescription({onAddToCart}){
             return (<NotFound/>);
         }
         else{
-            return (<Loading/>);
+            return <Loading/>;
         }
+    }
+    else if(product.id != id){
+        return <Loading/>
     }
 
     return (

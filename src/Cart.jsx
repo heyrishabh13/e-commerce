@@ -8,11 +8,10 @@ function Cart(){
     const [products, setProducts] = useState([]);
 
     useEffect(function(){
-        const arr = Object.keys(cartProductsIds).map(id => {
-            getProductData(id).then(res => {res.data; console.log('res.data', res.data)}).catch(err => console.log('Error while retrieving data from getProduct api in cart page',err))});
-            
-        console.log('array',arr);    
-        setProducts(arr)
+        const promises = Object.keys(cartProductsIds).map(id => getProductData(id).then(res => res.data).catch(err => console.log(err)));
+
+        Promise.all(promises).then(responses => setProducts(responses));
+        
     }, []);
     console.log('products in cart page',products);
     return (
